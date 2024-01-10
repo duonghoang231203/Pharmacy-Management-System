@@ -111,7 +111,7 @@ public class PharmacistDashboard extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/viewBill.png"))); // NOI18N
-        jButton6.setText("View Bill");
+        jButton6.setText("View History");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -191,7 +191,7 @@ public class PharmacistDashboard extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        new ViewBill().setVisible(true);
+        new ViewHistory().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

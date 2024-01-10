@@ -68,7 +68,7 @@ public class ViewMedicine extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Medicine ID", "Company Name", "Quantity", "Price"
+                "ID", "Medicine ID", "Name", "Company Name", "Quantity", "Price", "Description"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,7 +103,7 @@ public class ViewMedicine extends javax.swing.JFrame {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select *from medicine");
             while(rs.next()){
-                model.addRow(new Object[]{rs.getString("medicine_pk"),rs.getString("uniqueId"),rs.getString("name"),rs.getString("companyName"),rs.getString("quantity"),rs.getString("price")});
+                model.addRow(new Object[]{rs.getString("medicine_pk"),rs.getString("uniqueId"),rs.getString("name"),rs.getString("companyName"),rs.getString("quantity"),rs.getString("price"),rs.getString("description")});
             }
         }
         catch(Exception e){

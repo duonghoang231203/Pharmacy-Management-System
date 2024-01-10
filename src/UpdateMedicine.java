@@ -49,6 +49,8 @@ public class UpdateMedicine extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtPricePerUnit = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtDescription = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,7 +130,14 @@ public class UpdateMedicine extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 209, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Description");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
+
+        txtDescription.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(txtDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 300, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/all_pages_background.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -160,6 +169,7 @@ public class UpdateMedicine extends javax.swing.JFrame {
                    txtQuantity.setText(rs.getString("quantity"));
                    txtPricePerUnit.setText(rs.getString("price"));
                    txtQuantity.setEditable(false);
+                   txtDescription.setText(rs.getString("description"));
                    checkMedicineExist = 1;
                }
             }
@@ -181,6 +191,7 @@ public class UpdateMedicine extends javax.swing.JFrame {
         String quantity = txtQuantity.getText();
         String price = txtPricePerUnit.getText();
         String addQuantity = txtAddQuantity.getText();
+        String description = txtDescription.getText();
         
         int totalQuantity = 0;
         if(addQuantity.equals("")){
@@ -201,15 +212,18 @@ public class UpdateMedicine extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Price Per Unit field is required.");
         }else if(!price.matches(numberPattern)){
             JOptionPane.showMessageDialog(null, "Price Per Unit field is invalid.");
+        }else if(description.equals("")){
+            JOptionPane.showMessageDialog(null, "Description field is required.");
         }else{
             try{
                 Connection con = ConnectionProvider.getCon();
-                PreparedStatement ps = con.prepareStatement("update medicine set name=?,companyName=?,quantity=?,price=? where uniqueId=?");
+                PreparedStatement ps = con.prepareStatement("update medicine set name=?,companyName=?,quantity=?,price=?,description=? where uniqueId=?");
                 ps.setString(1, name);
                 ps.setString(2, companyName);
                 ps.setInt(3, totalQuantity);
                 ps.setString(4, price);
-                ps.setInt(5, Integer.parseInt(uniqueId));
+                ps.setString(5,description);
+                ps.setInt(6, Integer.parseInt(uniqueId));
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Medicine Updated Successfully");
                 setVisible(false);
@@ -268,9 +282,11 @@ public class UpdateMedicine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txtAddQuantity;
     private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtMedicineId;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPricePerUnit;

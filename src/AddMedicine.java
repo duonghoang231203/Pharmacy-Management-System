@@ -46,6 +46,8 @@ public class AddMedicine extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtPricePerUnit = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtDescription = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,7 +110,14 @@ public class AddMedicine extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Description");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
+
+        txtDescription.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        getContentPane().add(txtDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 300, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/all_pages_background.png"))); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -128,6 +137,7 @@ public class AddMedicine extends javax.swing.JFrame {
         String companyName = txtCompanyName.getText();
         String quantity = txtQuantity.getText();
         String price = txtPricePerUnit.getText();
+        String description = txtDescription.getText();
         
         if(uniqueId.equals("")){
             JOptionPane.showMessageDialog(null, "Medicine ID field is required.");
@@ -143,15 +153,18 @@ public class AddMedicine extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Price Per Unit field is required.");
         }else if(!price.matches(numberPattern)){
             JOptionPane.showMessageDialog(null, "Price Per Unit field is invalid.");
+        }else if(description.equals("")){
+            JOptionPane.showMessageDialog(null, "Description field is required.");
         }else{
             try{
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("insert into medicine (uniqueId,name,companyName,quantity,price) values(?,?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into medicine (uniqueId,name,companyName,quantity,price,description) values(?,?,?,?,?,?)");
             ps.setString(1, uniqueId);
             ps.setString(2, name);
             ps.setString(3, companyName);
             ps.setString(4, quantity);
             ps.setString(5, price);
+            ps.setString(6, description);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Medicine Added Successfully");
             setVisible(false);
@@ -208,8 +221,10 @@ public class AddMedicine extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPricePerUnit;
     private javax.swing.JTextField txtQuantity;
